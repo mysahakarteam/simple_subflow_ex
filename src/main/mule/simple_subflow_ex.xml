@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd">
+	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="071ea3c5-e8a8-43d4-9f0c-067b4f0441c4" >
+		<http:listener-connection host="0.0.0.0" port="8081" />
+	</http:listener-config>
+	<flow name="simple_subflow_exFlow" doc:id="ae0413a6-df4a-417f-a54f-aa99d9d3a522" >
+		<http:listener doc:name="Listener" doc:id="0e92b126-423e-4dc6-96a8-fe5f09129365" config-ref="HTTP_Listener_config" path="/subflow"/>
+		<logger level="INFO" doc:name="Logger" doc:id="e9a6f65c-e415-4da2-aa06-cd19042fd91b" message="RequestRecieved"/>
+		<flow-ref doc:name="Flow Reference" doc:id="bad79219-6595-4e5b-a51d-8fb7562efc91" name="simple_subflow_exSub_Flow"/>
+		<set-payload value="this service is working" doc:name="Set Payload" doc:id="fe05ab2f-aabc-4cbd-8f21-b4b1d5bdb78a" />
+	</flow>
+	<sub-flow name="simple_subflow_exSub_Flow" doc:id="0e6deca2-7a60-4024-8d0a-b6da6437ecee" >
+		<logger level="INFO" doc:name="Logger" doc:id="b2b5de24-1321-4669-943d-2945d4956822" message="in sub flow"/>
+	</sub-flow>
+</mule>
